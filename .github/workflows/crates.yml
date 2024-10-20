@@ -1,11 +1,10 @@
-name: crates
+name: crates-io
 
 concurrency:
   cancel-in-progress: false
   group: ${{ github.workflow }}-${{ github.ref }}
 
 env:
-  BASENAME: ${{ github.event.repository.name }}
   CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
   CARGO_TERM_COLOR: always
 
@@ -20,8 +19,23 @@ permissions: write-all
 
 jobs:
   publish:
-    name: Publish SDK
+    env:
+      CRATENAME: ${{ github.event.repository.name }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: cargo publish --all-features -v -p ${{ github.event.repository.name }} --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+      - 
+        name: publish
+        run: cargo publish --all-features -v -p ${{ github.event.repository.name }}
+      - 
+        name: cache
+        uses: actions/cache@v4
+        with:
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+            ${{ runner.os }}-

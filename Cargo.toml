@@ -20,11 +20,11 @@ thiserror = "1"
 
 [workspace.package]
 authors = ["FL03 <jo3mccain@icloud.com>",]
-categories = [ ]
+categories = [ "wasm" ]
 description = "fyber focuses on facilitating communications between various wasm instances"
 edition = "2021"
 homepage = "https://github.com/FL03/fyber/wiki"
-keywords = [ ]
+keywords = ["channel", "communication", "state"]
 license = "Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/FL03/fyber.git"
