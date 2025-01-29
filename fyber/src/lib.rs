@@ -4,7 +4,10 @@
 */
 //! # fyber
 //!
-//! fyber focuses on facilitating communications between various wasm instances
+//! fyber is a harmonic orchstrator designed to efficiently facilitate communcations between 
+//! ephemeral and persistent computational spaces.
+//! 
+//! - Every `fyber` speaks to the smallest computable surface
 #![cfg_attr(not(feature = "std"), no_std)]
 #![crate_name = "fyber"]
 
