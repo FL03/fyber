@@ -1,13 +1,14 @@
 [package]
-authors.workspace = true
 build = "build.rs"
+name = "fyber"
+
+authors.workspace = true
 categories.workspace = true
 description.workspace = true
 edition.workspace = true
 homepage.workspace = true
 keywords.workspace = true
 license.workspace = true
-name = "fyber"
 readme.workspace = true
 repository.workspace = true
 version.workspace = true
@@ -19,22 +20,29 @@ default = [
 
 full = [
     "default",
+    "actors",
     "serde",
 ]
 
+actors = [
+    "dep:fyber-actors",
+]
 # ********* [FF] Dependencies *********
 alloc = [
-    "serde?/alloc",
+    "fyber-core/alloc",
+    "fyber-actors?/alloc",
 ]
 
 serde = [
-    "dep:serde"
+    "fyber-actors?/serde",
+    "fyber-core/serde"
 ]
 
 # ********* [FF] Environments *********
 std = [
     "alloc",
-    "serde?/std",
+    "fyber-core/std",
+    "fyber-actors?/std",
 ]
 
 [lib]
@@ -46,12 +54,9 @@ test = true
 [build-dependencies]
 
 [dependencies]
+fyber-actors = { default-features = false, optional = true, path = "../actors", version = "0.0.1" }
+fyber-core = { default-features = false, path = "../core", version = "0.0.1" }
 
-[dependencies.serde]
-default-features = false
-features = ["derive"]
-optional = true
-version = "1"
 
 [dev-dependencies]
 lazy_static.workspace = true
