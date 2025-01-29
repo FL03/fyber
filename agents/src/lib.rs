@@ -10,9 +10,10 @@
 #[cfg(feature = "alloc")]
 extern crate alloc;
 
-pub use self::actor::*;
+pub use self::{agent::*, components::ComponentModel, traits::prelude::*};
 
-pub mod actor;
+pub mod agent;
+pub mod components;
 pub mod orch;
 
 #[allow(unused_imports)]
@@ -20,13 +21,15 @@ pub mod traits {
     #[doc(inline)]
     pub use self::prelude::*;
 
-    pub mod components;
-    
+    pub mod actors;
+
     pub(crate) mod prelude {
-        pub use super::components::*;
+        pub use super::actors::*;
     }
 }
 
 pub mod prelude {
+    
     pub use crate::orch::prelude::*;
+    pub use crate::traits::prelude::*;
 }

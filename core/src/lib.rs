@@ -10,9 +10,11 @@
 #[cfg(feature = "alloc")]
 extern crate alloc;
 
-pub use self::types::prelude::*;
+pub use self::{error::*, types::prelude::*};
 
+pub mod cspace;
 pub mod error;
+pub mod node;
 
 pub mod types {
     #[doc(inline)]

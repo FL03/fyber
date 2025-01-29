@@ -1,9 +1,9 @@
 /*
-    Appellation: devices <module>
+    Appellation: node <module>
     Contrib: @FL03
 */
 
-pub struct Device {
+pub struct NodeBase {
     pub name: String,
     pub id: u32,
 }

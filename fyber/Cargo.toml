@@ -20,21 +20,21 @@ default = [
 
 full = [
     "default",
-    "actors",
+    "agents",
     "serde",
 ]
 
-actors = [
-    "dep:fyber-actors",
+agents = [
+    "dep:fyber-agents",
 ]
 # ********* [FF] Dependencies *********
 alloc = [
     "fyber-core/alloc",
-    "fyber-actors?/alloc",
+    "fyber-agents?/alloc",
 ]
 
 serde = [
-    "fyber-actors?/serde",
+    "fyber-agents?/serde",
     "fyber-core/serde"
 ]
 
@@ -42,7 +42,7 @@ serde = [
 std = [
     "alloc",
     "fyber-core/std",
-    "fyber-actors?/std",
+    "fyber-agents?/std",
 ]
 
 [lib]
@@ -54,7 +54,7 @@ test = true
 [build-dependencies]
 
 [dependencies]
-fyber-actors = { default-features = false, optional = true, path = "../actors", version = "0.0.1" }
+fyber-agents = { default-features = false, optional = true, path = "../agents", version = "0.0.1" }
 fyber-core = { default-features = false, path = "../core", version = "0.0.1" }
 
 

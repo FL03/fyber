@@ -1,6 +1,6 @@
 [package]
 build = "build.rs"
-name = "fyber-actors"
+name = "fyber-agents"
 
 authors.workspace = true
 categories.workspace = true
