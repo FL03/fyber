@@ -29,7 +29,7 @@ pub mod traits {
 }
 
 pub mod prelude {
-    
+
     pub use crate::orch::prelude::*;
     pub use crate::traits::prelude::*;
 }

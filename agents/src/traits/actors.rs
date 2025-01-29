@@ -4,8 +4,6 @@
 */
 use fyber_core::{node::Node, FyberResult};
 
-
-
 pub trait PhysicalNode: Node {
     fn physicalize(&self) -> Self::Rel;
 }
@@ -21,7 +19,6 @@ pub trait NodeContext {
 pub trait Actor: Node {
     fn handle(&self, ctx: &Self::Ctx) -> FyberResult<()>;
 }
-
 
 pub trait Observer: Node {
     fn observe(&self, ctx: &Self::Ctx) -> FyberResult<()>;
