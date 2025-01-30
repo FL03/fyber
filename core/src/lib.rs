@@ -10,7 +10,12 @@
 #[cfg(feature = "alloc")]
 extern crate alloc;
 
-pub use self::{error::*, types::prelude::*};
+pub use self::{error::{FyberError, FyberResult}, types::prelude::*};
+
+#[macro_use]
+pub(crate) mod macros;
+#[macro_use]
+pub(crate) mod seal;
 
 pub mod cspace;
 pub mod error;
@@ -28,5 +33,6 @@ pub mod types {
 }
 
 pub mod prelude {
+    pub use crate::error::{FyberError, FyberResult};
     pub use crate::types::prelude::*;
 }

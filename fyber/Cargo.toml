@@ -38,6 +38,11 @@ serde = [
     "fyber-core/serde"
 ]
 
+tracing = [
+    "fyber-agents?/tracing",
+    "fyber-core/tracing",
+]
+
 # ********* [FF] Environments *********
 std = [
     "alloc",

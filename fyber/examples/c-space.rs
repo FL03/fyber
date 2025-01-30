@@ -23,26 +23,28 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let agents = vec![agent1.clone(), agent2.clone()];
 
-    let handles: Vec<_> = agents.into_iter().map(|agent| {
-        let cspace = cspace.clone();
-        thread::spawn(move || {
-            loop {
-                {
-                    let mut agent = agent.lock().unwrap();
-                    agent.decide_next_move(&cspace);
-                    Observer::observe(&agent);
+    let handles: Vec<_> = agents
+        .into_iter()
+        .map(|agent| {
+            let cspace = cspace.clone();
+            thread::spawn(move || {
+                loop {
+                    {
+                        let mut agent = agent.lock().unwrap();
+                        agent.decide_next_move(&cspace);
+                        Observer::observe(&agent);
+                    }
+                    thread::sleep(Duration::from_millis(500));
                 }
-                thread::sleep(Duration::from_millis(500));
-            }
+            })
         })
-    }).collect();
+        .collect();
 
     for handle in handles {
         handle.join().unwrap();
     }
     Ok(())
 }
-
 
 /// Represents the c-space as a dynamic weighted graph.
 #[derive(Clone, Debug)]
@@ -118,6 +120,9 @@ struct Observer;
 
 impl Observer {
     fn observe(agent: &Agent) {
-        println!("Observer: Agent {} moved to node {:?}", agent.id, agent.position);
+        println!(
+            "Observer: Agent {} moved to node {:?}",
+            agent.id, agent.position
+        );
     }
 }

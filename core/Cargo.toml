@@ -39,6 +39,7 @@ serde = [
   "dep:serde_derive",
 ]
 
+tracing = ["dep:tracing"]
 # ********* [FF] Environments *********
 std = [
   "alloc",
@@ -49,4 +50,5 @@ std = [
 [dependencies]
 serde = { default-features = false, optional = true, workspace = true }
 serde_derive = { optional = true, workspace = true }
+tracing = { optional = true, workspace = true }
 thiserror = { default-features = true, workspace = true }

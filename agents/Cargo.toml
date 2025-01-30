@@ -41,6 +41,11 @@ serde = [
   "fyber-core/serde",
 ]
 
+tracing = [
+  "dep:tracing",
+  "fyber-core/tracing",
+]
+
 # ********* [FF] Environments *********
 std = [
   "alloc",
@@ -53,4 +58,5 @@ fyber-core = { default-features = false, workspace = true }
 
 serde = { default-features = false, optional = true, workspace = true }
 serde_derive = { optional = true, workspace = true }
+tracing = { optional = true, workspace = true }
 wasmtime = { default-features = false, features = ["component-model", "runtime"], version = "29"}

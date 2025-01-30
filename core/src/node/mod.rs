@@ -9,11 +9,27 @@ pub use self::node::NodeBase;
 
 mod node;
 
-/// A node is a point within c-space
-pub trait Node {
+/// The base trait for all nodes considered within the system;
+///
+pub trait RawNode {
     type Ctx;
-    type Rel; // The `relative` c-space for the node
 
-    /// The address of the node within c-space; often a unique identifier
+    seal!();
+}
+
+pub trait PositionedNode: RawNode {
+
+    #[doc(hidden)]
+    /// return a reference to the node's position within space
     fn position(&self) -> &str;
 }
+
+/// A [RelativeNode] extends the [RawNode] trait by adding a `relative` c-space to the node, 
+/// tethering the object in a manner akin to the neo-riemannian theory. Logically, the 
+/// `relative` of a `relative` should be the same as the original. This follows as LPR 
+/// transformations are invertivble, and thus consecutive applications of the same 
+/// transformation onto the object should result in the original object.
+pub trait RelativeNode: RawNode {
+    type Rel: RelativeNode<Rel = Self>; // the `relative` of a `relative` should be the same as the original; same as in the neo-riemannian theory
+}
+

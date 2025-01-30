@@ -2,24 +2,36 @@
     Appellation: actors <module>
     Contrib: @FL03
 */
-use fyber_core::{node::Node, FyberResult};
+use fyber_core::{FyberResult, node::RawNode};
 
-pub trait PhysicalNode: Node {
-    fn physicalize(&self) -> Self::Rel;
-}
-
-pub trait VirtualNode: Node {
-    fn virtualize(&self) -> Self::Rel;
-}
-
-pub trait NodeContext {
+pub trait RawContext {
     type Config;
 }
-/// An [Actor] is any _actionable_ node that may possibly change the state of the system
-pub trait Actor: Node {
-    fn handle(&self, ctx: &Self::Ctx) -> FyberResult<()>;
+
+pub trait RawContainer {
+    type Data;
 }
 
-pub trait Observer: Node {
-    fn observe(&self, ctx: &Self::Ctx) -> FyberResult<()>;
+pub trait State {
+    type Ctx: RawContext;
+    type Data: RawContainer;
+}
+
+/// An [Actor] is any _actionable_ node that may possibly change the state of the system
+pub trait Actor {
+    type Node: RawNode;
+
+    fn handle<Ctx>(&self, ctx: &Ctx) -> FyberResult<()>
+    where
+        Ctx: RawContext,
+        Self::Node: RawNode<Ctx = Ctx>;
+}
+
+pub trait Observer {
+    type Node: RawNode;
+
+    fn observe<Ctx>(&self, ctx: &Ctx) -> FyberResult<()>
+    where
+        Ctx: RawContext,
+        Self::Node: RawNode<Ctx = Ctx>;
 }

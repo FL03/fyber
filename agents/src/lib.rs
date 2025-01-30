@@ -12,6 +12,9 @@ extern crate alloc;
 
 pub use self::{agent::*, components::ComponentModel, traits::prelude::*};
 
+#[macro_use]
+pub(crate) mod seal;
+
 pub mod agent;
 pub mod components;
 pub mod orch;
