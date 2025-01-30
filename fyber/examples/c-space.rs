@@ -27,14 +27,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .into_iter()
         .map(|agent| {
             let cspace = cspace.clone();
-            thread::spawn(move || {
+            std::thread::spawn(move || {
                 loop {
                     {
                         let mut agent = agent.lock().unwrap();
                         agent.decide_next_move(&cspace);
                         Observer::observe(&agent);
                     }
-                    thread::sleep(Duration::from_millis(500));
+                    std::thread::sleep(Duration::from_millis(500));
                 }
             })
         })
