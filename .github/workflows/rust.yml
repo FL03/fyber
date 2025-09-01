@@ -28,7 +28,7 @@ jobs:
         platform: [ ubuntu-latest ] # [ ubuntu-latest, macos-latest, windows-latest ]
         toolchain: [ stable, nightly ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - 
         name: rustup
         run: |
