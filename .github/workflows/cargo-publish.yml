@@ -1,0 +1,53 @@
+name: cargo-publish
+
+concurrency:
+  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: full
+
+on:
+  release:
+    types: [ published ]
+  repository_dispatch:
+    types: [ crates-io, cargo-publish ]
+  workflow_dispatch:
+
+jobs:
+  crates-io:
+    env:
+      CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+    environment:
+      name: crates-io
+      url: ${{ steps.set-output-url.outputs.url || 'https://crates.io/crates/fyber' }}
+    permissions:
+      contents: read
+      deployments: write
+      packages: write
+      statuses: write
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        package:
+          - fyber-core
+          - fyber-events
+          - fyber
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      -
+        name: rustup
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          cache-key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      -
+        name: publish (${{ matrix.package }})
+        run: cargo publish --locked --package ${{ matrix.package }}
+      -
+        name: Set the output url
+        id: set-output-url
+        run: |
+          echo "crate-url=https://crates.io/crates/${{ matrix.package }}" >> $GITHUB_OUTPUT

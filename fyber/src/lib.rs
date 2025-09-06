@@ -4,24 +4,29 @@
 */
 //! # fyber
 //!
-//! fyber is a harmonic orchstrator designed to efficiently facilitate communcations between
-//! ephemeral and persistent computational spaces.
-//!
-//! - Every `fyber` is considered to be some simplicial topological abstraction defining the
-//! smallest computable surface in any dimension.
+//! The `fyber` protocol aims to facilitate communications between individual WebAssembly components, modules, and their hosts.
+#![allow(
+    clippy::missing_safety_doc,
+    clippy::module_inception,
+    clippy::needless_doctest_main,
+    clippy::self_named_constructors,
+    clippy::upper_case_acronyms
+)]
 #![cfg_attr(not(feature = "std"), no_std)]
-#![crate_name = "fyber"]
 
 #[cfg(feature = "alloc")]
 extern crate alloc;
 
-#[cfg(feature = "agents")]
-pub use fyber_agents as agents;
 #[doc(inline)]
 pub use fyber_core::*;
+#[cfg(feature = "events")]
+#[doc(inline)]
+pub use fyber_events as events;
 
+#[doc(hidden)]
 pub mod prelude {
-    #[cfg(feature = "agents")]
-    pub use fyber_agents::prelude::*;
+    #[allow(unused_imports)]
     pub use fyber_core::prelude::*;
+    #[cfg(feature = "events")]
+    pub use fyber_events::prelude::*;
 }

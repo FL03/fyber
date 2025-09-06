@@ -1,10 +1,10 @@
 [package]
 build = "build.rs"
-name = "fyber"
+description = "events for the fyber protocol"
+name = "fyber-events"
 
 authors.workspace = true
 categories.workspace = true
-description.workspace = true
 edition.workspace = true
 homepage.workspace = true
 keywords.workspace = true
@@ -15,22 +15,31 @@ rust-version.workspace = true
 version.workspace = true
 
 [lib]
-bench = true
+bench = false
 crate-type = ["cdylib", "rlib"]
-doctest = true
+doc = true
+doctest = false
 test = true
 
-# ********* [Benchmarks] *********
-[[bench]]
+[[test]]
 name = "default"
-harness = false
 
-# ********* [Examples] *********
-[[example]]
-name = "demo"
-required-features = ["events", "json", "std"]
+[dependencies]
+fyber-core = { workspace = true }
+# data structures
+bytes = { optional = true, workspace = true }
+# error
+thiserror = { workspace = true }
+# serialization
+serde = { optional = true, workspace = true }
+serde_derive = { optional = true, workspace = true }
+serde_json = { optional = true, workspace = true }
+# macros and utilities
+strum = { workspace = true }
+# WebAssembly
+wasm-bindgen = { optional = true, workspace = true }
 
-# ********* [Package Metadata] *********
+# ********* [metadata] *********
 [package.metadata.docs.rs]
 all-features = false
 features = ["full"]
@@ -41,16 +50,8 @@ version = "v{{version}}"
 no-dev-version = true
 tag-name = "{{version}}"
 
-[dependencies]
-fyber-core = { workspace = true }
-fyber-events = { optional = true, workspace = true }
-
-[dev-dependencies]
-criterion = { features = ["plotters"], version = "0.7" }
-
 [features]
 default = [
-  "events",
   "std",
 ]
 
@@ -61,11 +62,6 @@ full = [
 ]
 
 # ********* [FF] Features *********
-events = [
-  "alloc",
-  "fyber-events",
-]
-
 json = [
   "alloc",
   "serde_json",
@@ -73,48 +69,54 @@ json = [
 ]
 
 nightly = [
-  "fyber-core/nightly"
+  "fyber-core/nightly",
 ]
-
-fyber-events = ["dep:fyber-events"]
 
 # ********* [FF] Environments *********
 std = [
   "alloc",
   "fyber-core/std",
-  "fyber-events?/std",
+  "bytes?/std",
+  "serde?/std",
+  "serde_json?/std",
+  "strum/std",
+  "thiserror/std",
 ]
 
 wasi = [
   "alloc",
   "fyber-core/wasi",
-  "fyber-events?/wasi",
 ]
 
 wasm = [
   "alloc",
-  "wasm-bindgen",
   "fyber-core/wasm",
-  "fyber-events?/wasm",
+  "wasm-bindgen",
 ]
 
 # ********* [FF] Dependencies *********
 alloc = [
   "fyber-core/alloc",
-  "fyber-events?/alloc",
+  "serde?/alloc",
+  "serde_json?/alloc",
 ]
 
+bytes = ["dep:bytes"]
+
 serde = [
+  "dep:serde",
+  "dep:serde_derive",
+  "bytes?/serde",
+  "serde?/derive",
   "fyber-core/serde",
-  "fyber-events?/serde",
 ]
 
 serde_json = [
+  "dep:serde_json",
   "fyber-core/serde_json",
-  "fyber-events?/serde_json",
 ]
 
 wasm-bindgen = [
+  "dep:wasm-bindgen",
   "fyber-core/wasm-bindgen",
-  "fyber-events?/wasm-bindgen",
 ]

@@ -1,65 +1,74 @@
 [workspace]
-default-members = [
-    "fyber"
+default-members = ["fyber"]
+members = [
+  "fyber",
+  "core", 
+  "events",
 ]
-
-exclude = [ ]
-
-members = [ 
-    "fyber",
-    "agents",
-    "core",
-]
-
 resolver = "3"
 
-[workspace.dependencies]
-fyber-core = { default-features = false, path = "./core", version = "0.0.1" }
-
-anyhow = "1"
-lazy_static = "1"
-paste = "1"
-petgraph = "0.7"
-rand = "0.9"
-serde = { default-features = false, features = ["derive"], version = "1" }
-serde_derive = "1"
-serde_json = "1"
-smart-default = "0.7"
-strum = { default-features = false, features = ["derive"], version = "0.26" }
-tracing = "0.1"
-tracing-subscriber = { features = ["env-filter"], version = "0.3" }
-thiserror = "2"
-
 [workspace.package]
-authors = ["FL03 <j3mccain@gmail.com> (https://github.com/FL03)", "Scattered-Systems <support@scsys.io> (https://scsys.io)"]
-categories = [ "wasm" ]
-description = "fyber focuses on facilitating communications between various wasm instances"
+authors = [
+  "FL03 <joe@pzzld.org> (https://github.com/FL03)", 
+  "Scattered-Systems <support@scsys.io> (https://scsys.io)"
+]
+categories = []
+description = "The fyber protocol aims to streamline communications between webassembly modules and their host environments."
 edition = "2024"
 homepage = "https://github.com/FL03/fyber/wiki"
-keywords = ["agent", "orchestrator", "state"]
+keywords = ["wasm"]
 license = "Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/FL03/fyber.git"
+rust-version = "1.85.0"
 version = "0.0.1"
 
+[workspace.dependencies]
+fyber = { default-features = false, path = "fyber", version = "0.0.1" }
+fyber-core = { default-features = false, path = "core", version = "0.0.1" }
+fyber-events = { default-features = false, path = "events", version = "0.0.1" }
+# data structures
+bytes = { default-features = false, version = "1" }
+# error
+anyhow = { default-features = false, version = "1" }
+thiserror = { default-features = false, version = "2" }
+# serialization
+serde = { default-features =  false, features = ["derive"], version = "1" }
+serde_derive = { version = "1" }
+serde_json = { default-features = false, version = "1" }
+# macros and utilities
+lazy_static = "1"
+paste = { version = "1" }
+smart-default = { version = "0.7" }
+strum = { default-features = false, features = ["derive"], version = "0.27" }
+# time
+chrono = { default-features = false, version = "0.4" }
+humantime = { default-features = false, version = "2" }
+time = { default-features = false, version = "0.3" }
+# WebAssembly
+wasm-bindgen = { default-features = false, version = "0.2" }
+
+# ********* [Profiles] *********
 [profile.dev]
-opt-level = 0
+codegen-units = 256
 debug = true
 debug-assertions = true
-overflow-checks = true
-lto = false
-panic = 'unwind'
 incremental = true
-codegen-units = 256
-rpath = false
+lto = "thin"
+opt-level = 2
+overflow-checks = true
+panic = "abort"
+rpath = true
+strip = "symbols"
 
 [profile.release]
-opt-level = 3
+codegen-units = 16
 debug = false
 debug-assertions = false
-overflow-checks = false
-lto = false
-panic = 'unwind'
 incremental = false
-codegen-units = 16
+lto = true
+opt-level = "z"
+overflow-checks = false
+panic = "abort"
 rpath = false
+strip = "debuginfo"

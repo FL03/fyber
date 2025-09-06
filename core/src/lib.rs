@@ -1,38 +1,32 @@
 /*
-    Appellation: fyber-core <library>
+    Appellation: fluo-core <library>
+    Created At: 2025.08.31:09:36:34
     Contrib: @FL03
 */
-//! Core modules for the `fyber` library
-//!
-//!
+//! the core of the fluo protocol
+#![allow(
+    clippy::missing_safety_doc,
+    clippy::module_inception,
+    clippy::needless_doctest_main,
+    clippy::self_named_constructors,
+    clippy::upper_case_acronyms
+)]
 #![cfg_attr(not(feature = "std"), no_std)]
+#![cfg_attr(feature = "nightly", feature(allocator_api))]
 
 #[cfg(feature = "alloc")]
 extern crate alloc;
 
-pub use self::{error::{FyberError, FyberResult}, types::prelude::*};
+#[doc(inline)]
+pub use self::error::{Error, Result};
 
-#[macro_use]
-pub(crate) mod macros;
-#[macro_use]
-pub(crate) mod seal;
-
-pub mod cspace;
 pub mod error;
-pub mod node;
 
-pub mod types {
-    #[doc(inline)]
-    pub use self::prelude::*;
-
-    pub mod devices;
-
-    pub(crate) mod prelude {
-        pub use super::devices::*;
-    }
+#[macro_use]
+mod macros {
+    #[macro_use]
+    pub(crate) mod seal;
 }
 
-pub mod prelude {
-    pub use crate::error::{FyberError, FyberResult};
-    pub use crate::types::prelude::*;
-}
+#[doc(hidden)]
+pub mod prelude {}

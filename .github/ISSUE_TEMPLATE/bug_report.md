@@ -1,41 +1,27 @@
 ---
-name: Bug report
 about: Create a report to help us improve
+labels: [ bug, report ]
+name: Bug report
 title: 'Bug Report: '
-labels: [ bug ]
-assignees: [ FL03 ]
-
+type: issue
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## Report
 
-**To Reproduce**
-Steps to reproduce the behavior:
+<!-- A clear and concise summary providing critical insight into the issue at hand. -->
 
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+### Steps to Reproduce
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+<!-- Define the host platform and list out the steps required to reproduce -->
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+### Expected
 
-**Desktop (please complete the following information):**
+<!-- What was supposed to happen? -->
 
-- OS: [e.g. iOS]
-- Browser [e.g. chrome, safari]
-- Version [e.g. 22]
+### Actual
 
-**Smartphone (please complete the following information):**
+<!-- What actually happened? -->
 
-- Device: [e.g. iPhone6]
-- OS: [e.g. iOS8.1]
-- Browser [e.g. stock browser, safari]
-- Version [e.g. 22]
+### Attachments
 
-**Additional context**
-Add any other context about the problem here.
+<!-- Any logs, screenshots, or other attachments relevant to the issue. -->
