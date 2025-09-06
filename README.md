@@ -8,7 +8,7 @@
 
 _**The library is currently in the early stages of development and is still settling in on a feel for the api.**_
 
-Welcome to `fyber`, a Rust library for facilitating interactions between independent WebAssembly modules, components, and their hosts. `fyber` aims to provide a robust and flexible framework for building modular applications using WebAssembly.
+Welcome to `fyber`, a crate focused on facilitating communications between independent WebAssembly modules and their constituent components, enabling them to interact seamlessly within a shared environment. The library is designed to be lightweight and efficient, making it suitable for a variety of applications, including serverless computing, edge computing, and microservices architectures.
 
 ## Getting Started
 
