@@ -1,23 +1,30 @@
 # fyber
 
-[![crates.io](https://img.shields.io/crates/v/fyber.svg)](https://crates.io/crates/fyber)
-[![docs.rs](https://docs.rs/fyber/badge.svg)](https://docs.rs/fyber)
-[![license](https://img.shields.io/crates/l/fyber.svg)](https://crates.io/crates/fyber)
-
-[![clippy](https://github.com/FL03/fyber/actions/workflows/clippy.yml/badge.svg)](https://github.com/FL03/fyber/actions/workflows/clippy.yml)
-[![rust](https://github.com/FL03/fyber/actions/workflows/rust.yml/badge.svg)](https://github.com/FL03/fyber/actions/workflows/rust.yml)
+[![crates.io](https://img.shields.io/crates/v/fyber?style=for-the-badge&logo=rust)](https://crates.io/crates/fyber)
+[![docs.rs](https://img.shields.io/docsrs/fyber?style=for-the-badge&logo=docs.rs)](https://docs.rs/fyber)
+[![GitHub License](https://img.shields.io/github/license/FL03/fyber?style=for-the-badge&logo=github)](LICENSE)
 
 ***
 
-_**The library is currently in the early stages of development and is not yet ready for production use.**_
+_**The library is currently in the early stages of development and is still settling in on a feel for the api.**_
 
-fyber focuses on facilitating communications between various wasm instances
-
-## Features
-
-- [x] Feature 1
+Welcome to `fyber`, a crate focused on facilitating communications between independent WebAssembly modules and their constituent components, enabling them to interact seamlessly within a shared environment. The library is designed to be lightweight and efficient, making it suitable for a variety of applications, including serverless computing, edge computing, and microservices architectures.
 
 ## Getting Started
+
+For a more detailed guide on getting started, please refer to the [QUICKSTART.md](QUICKSTART.md) file.
+
+### Adding `fyber` to your project
+
+To add `fyber` to your Rust project, include it in your `Cargo.toml` file:
+
+```toml
+[dependencies.fyber]
+version = "0.0.x"
+features = [
+    "default",
+]
+```
 
 ### Building from the source
 
@@ -25,50 +32,28 @@ Start by cloning the repository
 
 ```bash
 git clone https://github.com/FL03/fyber.git
+```
+
+Then, change into the directory:
+
+```bash
 cd fyber
 ```
 
-#### _Building the project_
-
 ```bash
-cargo build --all-features -r -v --workspace
+cargo build --all-features --workspace
 ```
 
-#### _Running tests_
+#### _Run an example_
 
 ```bash
-cargo test --all-features -r -v --workspace
-```
-
-## Usage
-
-Add this to your `Cargo.toml`:
-
-```toml
-[dependencies.fyber]
-features = []
-version = "0.1.0"
+cargo run -f F --example {actor}
 ```
 
 ### Examples
 
-#### _Basic Usage_
-
-```rust
-    extern crate fyber;
-
-    fn main() -> Result<(), Box<dyn std::error::Error>> {
-        tracing_subscriber::fmt::init();
-        tracing::info!("Welcome to {name}", name = fyber);
-
-
-        Ok(())
-    }
-```
+You can find various examples in the [examples](fyber/examples) directory. Each example demonstrates different features and use cases of the `fyber` library.
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+Contributions are welcome! For more information visit the [CONTRIBUTING.md](CONTRIBUTING.md) file.

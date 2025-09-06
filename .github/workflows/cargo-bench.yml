@@ -1,0 +1,47 @@
+name: cargo-bench
+
+concurrency:
+  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: full
+
+on:
+  repository_dispatch:
+    types: [ cargo-bench, benchmark ]
+  workflow_dispatch:
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [ x86_64-unknown-linux-gnu ] # [ x86_64-unknown-linux-gnu, wasm32-unknown-unknown, wasm32-wasip1, wasm32-wasip2 ]
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v5
+      -
+        name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          cache-key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          target: ${{ matrix.target }}
+      -
+        name: Benchmark the workspace
+        run: cargo bench -v --locked --workspace --features full --target ${{ matrix.target }}
+      -
+        name: Upload the benchmarks
+        id: artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Benchmark Report (${{ github.run_id }})
+          if-no-files-found: error
+          overwrite: true
+          path: target/criterion/

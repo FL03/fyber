@@ -1,15 +1,19 @@
 version: 2
 
 updates:
-  - package-ecosystem: cargo
+  - package-ecosystem: devcontainers
     directory: /
-    schedule:
+    schedule: 
       interval: monthly
   - package-ecosystem: github-actions
     directory: /
-    schedule:
+    schedule: 
       interval: monthly
   - package-ecosystem: cargo
-    directory: /fyber
     schedule:
-      interval: weekly
+      interval: monthly
+    directories:
+      - /
+      - fyber
+      - core
+      - events
